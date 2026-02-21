@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Control v2 — Design Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #09090b; color: #fafafa; min-height: 100vh; font-size: 14px; }
+
+/* Layout */
+.app { display: flex; height: 100vh; }
+.sidebar { width: 240px; background: #0a0a0c; border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; flex-shrink: 0; }
+.main { flex: 1; overflow-y: auto; }
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 32px; background: rgba(9,9,11,0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.04); position: sticky; top: 0; z-index: 10; }
+.content { padding: 32px; max-width: 1200px; margin: 0 auto; }
+
+/* Sidebar */
+.sidebar-brand { padding: 20px 20px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.sidebar-brand h1 { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; }
+.sidebar-brand h1 span { color: #3b82f6; }
+.sidebar-nav { padding: 12px 8px; flex: 1; overflow-y: auto; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; color: #71717a; font-size: 13px; cursor: pointer; transition: all 0.15s; text-decoration: none; position: relative; margin-bottom: 2px; }
+.nav-item:hover { color: #e4e4e7; background: rgba(255,255,255,0.04); }
+.nav-item.active { color: #3b82f6; background: rgba(59,130,246,0.08); font-weight: 500; }
+.nav-item.active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 16px; background: #3b82f6; border-radius: 2px; }
+.nav-divider { height: 1px; background: rgba(255,255,255,0.04); margin: 8px 12px; }
+.nav-label { padding: 8px 12px 4px; font-size: 10px; font-weight: 600; color: #52525b; text-transform: uppercase; letter-spacing: 0.1em; display: flex; justify-content: space-between; align-items: center; }
+
+/* Topbar */
+.topbar-left { display: flex; align-items: center; gap: 12px; }
+.topbar-greeting { font-size: 13px; color: #a1a1aa; }
+.topbar-right { display: flex; align-items: center; gap: 16px; }
+.topbar-time { font-size: 12px; color: #71717a; font-variant-numeric: tabular-nums; font-family: 'SF Mono', 'Fira Code', monospace; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(59,130,246,0.1)); border: 1px solid rgba(59,130,246,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #3b82f6; }
+
+/* Welcome Hero */
+.hero { margin-bottom: 32px; }
+.hero h2 { font-size: 28px; font-weight: 700; background: linear-gradient(135deg, #fafafa 0%, #71717a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; }
+.hero p { color: #71717a; font-size: 13px; }
+
+/* Stats Row */
+.stats-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-bottom: 32px; }
+.stat-chip { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 14px 8px; text-align: center; backdrop-filter: blur(8px); }
+.stat-chip .value { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stat-chip .label { font-size: 10px; color: #52525b; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+.stat-green { color: #22c55e; }
+.stat-blue { color: #3b82f6; }
+.stat-red { color: #ef4444; }
+.stat-amber { color: #f59e0b; }
+
+/* Attention Block */
+.attention { background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+.attention-dot { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; animation: pulse 2s infinite; flex-shrink: 0; }
+.attention-text { font-size: 13px; color: #fca5a5; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* Section Header */
+.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.section-header h3 { font-size: 12px; font-weight: 500; color: #71717a; text-transform: uppercase; letter-spacing: 0.08em; }
+.section-header .line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.08), transparent); }
+
+/* Life Area Cards */
+.life-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 40px; }
+.life-card { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+.life-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+.life-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.life-card-icon { font-size: 20px; }
+.life-card-badge { font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: 500; }
+.badge-up { background: rgba(34,197,94,0.1); color: #22c55e; }
+.badge-down { background: rgba(239,68,68,0.1); color: #ef4444; }
+.badge-steady { background: rgba(245,158,11,0.1); color: #f59e0b; }
+.badge-none { background: rgba(113,113,122,0.1); color: #71717a; }
+.life-card-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.life-card-summary { font-size: 11px; color: #52525b; line-height: 1.5; }
+.life-card-dot { position: absolute; top: 12px; right: 12px; width: 6px; height: 6px; border-radius: 50%; }
+.dot-green { background: #22c55e; }
+.dot-amber { background: #f59e0b; }
+.dot-red { background: #ef4444; }
+.dot-gray { background: #3f3f46; }
+
+/* Performance Section */
+.perf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.perf-card { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px; }
+.perf-card h4 { font-size: 11px; color: #52525b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+.perf-bar { height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; margin-bottom: 8px; overflow: hidden; }
+.perf-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+.perf-bar-fill.green { background: linear-gradient(90deg, #22c55e, #16a34a); }
+.perf-bar-fill.blue { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+.perf-bar-fill.amber { background: linear-gradient(90deg, #f59e0b, #d97706); }
+.perf-metric { display: flex; justify-content: space-between; font-size: 12px; color: #a1a1aa; }
+.perf-metric .val { font-weight: 600; color: #fafafa; }
+
+/* Page Labels */
+.page-label { font-size: 11px; color: #3b82f6; background: rgba(59,130,246,0.08); padding: 4px 10px; border-radius: 6px; font-weight: 500; display: inline-block; margin-bottom: 8px; letter-spacing: 0.02em; }
+
+/* Quick Actions */
+.quick-actions { display: flex; gap: 8px; margin-bottom: 32px; }
+.quick-btn { padding: 7px 14px; border-radius: 8px; font-size: 12px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color: #a1a1aa; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
+.quick-btn:hover { background: rgba(255,255,255,0.06); color: #fafafa; border-color: rgba(255,255,255,0.12); }
+
+/* Mockup Label */
+.mockup-badge { position: fixed; bottom: 16px; right: 16px; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); color: #60a5fa; padding: 6px 14px; border-radius: 8px; font-size: 11px; font-weight: 500; z-index: 100; backdrop-filter: blur(8px); }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <h1>MISSION <span>CONTROL</span></h1>
+    </div>
+    <div class="sidebar-nav">
+      <a class="nav-item active">🏠 Home</a>
+      <a class="nav-item">✅ Tasks</a>
+      <a class="nav-item">📦 Projects</a>
+      <a class="nav-item">📄 Deliverables</a>
+      <a class="nav-item">🧠 Second Brain</a>
+      <a class="nav-item">🏆 Team</a>
+      <a class="nav-item">✈️ Travel</a>
+      
+      <div class="nav-divider"></div>
+      <div class="nav-label">Life Areas <span style="font-size:10px;cursor:pointer;">▾</span></div>
+      
+      <a class="nav-item">⛪ Faith</a>
+      <a class="nav-item">💍 Marriage</a>
+      <a class="nav-item">👨‍👧‍👦 Fatherhood</a>
+      <a class="nav-item">💪 Health</a>
+      <a class="nav-item">🧠 Mind</a>
+      <a class="nav-item">🎯 Skills</a>
+      <a class="nav-item">💼 Career</a>
+      <a class="nav-item">💰 Finance</a>
+      <a class="nav-item">⚙️ Systems</a>
+      <a class="nav-item">🤝 Relationships</a>
+      <a class="nav-item">🌍 Adventure</a>
+      <a class="nav-item">🏛️ Legacy</a>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-greeting">Good evening, Joel</span>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-time">Fri, Feb 20 · 10:37 PM</span>
+        <div class="avatar">JM</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <!-- Hero -->
+      <div class="hero">
+        <span class="page-label">Dashboard</span>
+        <h2>Good evening, Joel</h2>
+        <p>3 active tasks across your system · Vancouver trip day 1</p>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <button class="quick-btn">+ New Task</button>
+        <button class="quick-btn">📝 Quick Note</button>
+        <button class="quick-btn">🎙️ Voice Capture</button>
+        <button class="quick-btn">📊 Weekly Review</button>
+      </div>
+
+      <!-- Attention -->
+      <div class="attention">
+        <div class="attention-dot"></div>
+        <div class="attention-text">No urgent items — all clear ✅</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-chip">
+          <div class="value stat-green">2</div>
+          <div class="label">Done Today</div>
+        </div>
+        <div class="stat-chip">
+          <div class="value stat-blue">3</div>
+          <div class="label">In Progress</div>
+        </div>
+        <div class="stat-chip">
+          <div class="value">0</div>
+          <div class="label">Blocked</div>
+        </div>
+        <div class="stat-chip">
+          <div class="value">0</div>
+          <div class="label">Overdue</div>
+        </div>
+        <div class="stat-chip">
+          <div class="value">8</div>
+          <div class="label">This Week</div>
+        </div>
+        <div class="stat-chip">
+          <div class="value">7</div>
+          <div class="label">Projects</div>
+        </div>
+        <div class="stat-chip">
+          <div class="value">6</div>
+          <div class="label">Deliverables</div>
+        </div>
+      </div>
+
+      <!-- Life Areas -->
+      <div class="section-header">
+        <h3>Life Areas</h3>
+        <div class="line"></div>
+      </div>
+      <div class="life-grid">
+        <div class="life-card">
+          <div class="life-card-dot dot-green"></div>
+          <div class="life-card-header">
+            <span class="life-card-icon">⛪</span>
+            <span class="life-card-badge badge-up">↑ Active</span>
+          </div>
+          <div class="life-card-title">Faith</div>
+          <div class="life-card-summary">3 items · 1 active · 1 done</div>
+        </div>
+        <div class="life-card">
+          <div class="life-card-dot dot-green"></div>
+          <div class="life-card-header">
+            <span class="life-card-icon">💍</span>
+            <span class="life-card-badge badge-up">↑ Active</span>
+          </div>
+          <div class="life-card-title">Marriage</div>
+          <div class="life-card-summary">2 items · 1 active</div>
+        </div>
+        <div class="life-card">
+          <div class="life-card-dot dot-gray"></div>
+          <div class="life-card-header">
+            <span class="life-card-icon">👨‍👧‍👦</span>
+            <span class="life-card-badge badge-none">—</span>
+          </div>
+          <div class="life-card-title">Fatherhood</div>
+          <div class="life-card-summary">No items yet</div>
+        </div>
+        <div class="life-card">
+          <div class="life-card-dot dot-amber"></div>
+          <div class="life-card-header">
+            <span class="life-card-icon">💪</span>
+            <span class="life-card-badge badge-steady">~ Steady</span>
+          </div>
+          <div class="life-card-title">Health</div>
+          <div class="life-card-summary">4 items · 2 active · 1 blocked</div>
+        </div>
+        <div class="life-card">
+          <div class="life-card-dot dot-green"></div>
+          <div class="life-card-header">
+            <span class="life-card-icon">🧠</span>
+            <span class="life-card-badge badge-up">↑ Active</span>
+          </div>
+          <div class="life-card-title">Mind</div>
+          <div class="life-card-summary">5 items · 3 active</div>
+        </div>
+        <div class="life-card">
+          <div class="life-card-dot dot-green"></div>
+          <div class="life-card-header">
+            <span class="life-card-icon">🎯</span>
+            <span class="life-card-badge badge-up">↑ Active</span>
+          </div>
+          <div class="life-card-title">Skills</div>
+          <div class="life-card-summary">6 items · 2 active · 2 done</div>
+        </div>
+        <div class="life-card">
+          <div class="life-card-dot dot-green"></div>
+          <div class="life-card-header">
+            <span class="life-card-icon">💼</span>
+            <span class="life-card-badge badge-up">↑ Active</span>
+          </div>
+          <div class="life-card-title">Career</div>
+          <div class="life-card-summary">8 items · 4 active · 1 done</div>
+        </div>
+        <div class="life-card">
+          <div class="life-card-dot dot-red"></div>
+          <div class="life-card-header">
+            <span class="life-card-icon">💰</span>
+            <span class="life-card-badge badge-down">↓ Blocked</span>
+          </div>
+          <div class="life-card-title">Finance</div>
+          <div class="life-card-summary">3 items · 1 blocked</div>
+        </div>
+        <div class="life-card">
+          <div class="life-card-dot dot-green"></div>
+          <div class="life-card-header">
+            <span class="life-card-icon">⚙️</span>
+            <span class="life-card-badge badge-up">↑ Active</span>
+          </div>
+          <div class="life-card-title">Systems</div>
+          <div class="life-card-summary">5 items · 3 active · 1 done</div>
+        </div>
+        <div class="life-card">
+          <div class="life-card-dot dot-gray"></div>
+          <div class="life-card-header">
+            <span class="life-card-icon">🤝</span>
+            <span class="life-card-badge badge-none">—</span>
+          </div>
+          <div class="life-card-title">Relationships</div>
+          <div class="life-card-summary">No items yet</div>
+        </div>
+        <div class="life-card">
+          <div class="life-card-dot dot-green"></div>
+          <div class="life-card-header">
+            <span class="life-card-icon">🌍</span>
+            <span class="life-card-badge badge-up">↑ Active</span>
+          </div>
+          <div class="life-card-title">Adventure</div>
+          <div class="life-card-summary">2 items · 1 active</div>
+        </div>
+        <div class="life-card">
+          <div class="life-card-dot dot-gray"></div>
+          <div class="life-card-header">
+            <span class="life-card-icon">🏛️</span>
+            <span class="life-card-badge badge-none">—</span>
+          </div>
+          <div class="life-card-title">Legacy</div>
+          <div class="life-card-summary">No items yet</div>
+        </div>
+      </div>
+
+      <!-- Performance -->
+      <div class="section-header">
+        <h3>Performance</h3>
+        <div class="line"></div>
+      </div>
+      <div class="perf-grid">
+        <div class="perf-card">
+          <h4>Weekly Velocity</h4>
+          <div class="perf-bar"><div class="perf-bar-fill green" style="width:72%"></div></div>
+          <div class="perf-metric"><span>8 / 11 tasks</span><span class="val">72%</span></div>
+        </div>
+        <div class="perf-card">
+          <h4>Project Health</h4>
+          <div class="perf-bar"><div class="perf-bar-fill blue" style="width:85%"></div></div>
+          <div class="perf-metric"><span>6 / 7 on track</span><span class="val">85%</span></div>
+        </div>
+        <div class="perf-card">
+          <h4>System Coverage</h4>
+          <div class="perf-bar"><div class="perf-bar-fill amber" style="width:58%"></div></div>
+          <div class="perf-metric"><span>7 / 12 areas active</span><span class="val">58%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mockup-badge">📐 Design Mockup v2</div>
+
+</body>
+</html>
