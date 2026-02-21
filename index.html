@@ -5,11 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Mission Control</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link href="https://unpkg.com/lucide-static@0.460.0/font/lucide.min.css" rel="stylesheet">
-<style>
-/* Fallback: if lucide font fails, show text labels */
-@font-face { font-family: 'lucide-test'; src: url('https://unpkg.com/lucide-static@0.460.0/font/lucide.woff2') format('woff2'); }
-</style>
+<!-- All icons are inline SVG — zero font dependencies -->
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -112,6 +108,7 @@ i[class^="icon-"]{font-size:18px;line-height:1;display:inline-flex}
 .ac-gray{background:var(--border)}
 .area-icon-wrap{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:18px}
 .area-icon-wrap i{font-size:20px}
+.area-icon-wrap svg{width:20px;height:20px}
 .ai-faith{background:var(--amber-bg);color:var(--amber)}
 .ai-marriage{background:var(--pink-bg);color:var(--pink)}
 .ai-fatherhood{background:var(--blue-bg);color:var(--blue)}
@@ -139,7 +136,8 @@ i[class^="icon-"]{font-size:18px;line-height:1;display:inline-flex}
 .task-check{width:22px;height:22px;border-radius:7px;border:2px solid var(--border);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .task-check:active{border-color:var(--green)}
 .task-check.done{background:var(--green);border-color:var(--green)}
-.task-check.done i{display:block}
+.task-check.done svg{display:block}
+.task-check svg{display:none;width:12px;height:12px}
 .task-check i{display:none;font-size:12px;color:#fff}
 .task-body{flex:1;min-width:0}
 .task-title{font-size:13px;font-weight:600;letter-spacing:-0.01em}
@@ -253,7 +251,7 @@ i[class^="icon-"]{font-size:18px;line-height:1;display:inline-flex}
 <div class="drawer-bg" id="drawer" onclick="closeDrawer()">
 <div class="drawer" onclick="event.stopPropagation()">
   <div class="drawer-head">
-    <div class="drawer-head-logo"><div class="logo-icon"><i class="icon-zap"></i></div><span>Mission Control</span></div>
+    <div class="drawer-head-logo"><div class="logo-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><span>Mission Control</span></div>
     <button class="drawer-close" onclick="closeDrawer()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
   </div>
   <div class="drawer-nav">
@@ -266,18 +264,18 @@ i[class^="icon-"]{font-size:18px;line-height:1;display:inline-flex}
     <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Travel</a>
     <div class="drawer-sep"></div>
     <div class="drawer-label">Life Areas</div>
-    <a href="#">⛪ Faith</a>
-    <a href="#">💍 Marriage</a>
-    <a href="#">👨‍👧‍👦 Fatherhood</a>
-    <a href="#">💪 Health</a>
-    <a href="#">🧠 Mind</a>
-    <a href="#">🎯 Skills</a>
-    <a href="#">💼 Career</a>
-    <a href="#">💰 Finance</a>
-    <a href="#">⚙️ Systems</a>
-    <a href="#">🤝 Relationships</a>
-    <a href="#">🌍 Adventure</a>
-    <a href="#">🏛️ Legacy</a>
+    <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg> Faith</a>
+    <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Marriage</a>
+    <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Fatherhood</a>
+    <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"/><path d="M12 5.5v0"/><path d="M3.5 14h4l1.5-3 2 6 1.5-3h4"/></svg> Health</a>
+    <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> Mind</a>
+    <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Skills</a>
+    <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg> Career</a>
+    <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Finance</a>
+    <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Systems</a>
+    <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Relationships</a>
+    <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Adventure</a>
+    <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Legacy</a>
   </div>
 </div>
 </div>
@@ -286,29 +284,29 @@ i[class^="icon-"]{font-size:18px;line-height:1;display:inline-flex}
 
 <!-- Desktop Sidebar -->
 <div class="desktop-side">
-  <div class="ds-brand"><div class="logo-icon"><i class="icon-zap"></i></div><span>Mission Control</span></div>
+  <div class="ds-brand"><div class="logo-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><span>Mission Control</span></div>
   <div class="ds-nav">
-    <a href="#" class="active"><i class="icon-layout-dashboard"></i>Home</a>
-    <a href="#"><i class="icon-check-square"></i>Tasks</a>
-    <a href="#"><i class="icon-folder-kanban"></i>Projects</a>
-    <a href="#"><i class="icon-file-text"></i>Deliverables</a>
-    <a href="#"><i class="icon-brain"></i>Second Brain</a>
-    <a href="#"><i class="icon-trophy"></i>Team</a>
-    <a href="#"><i class="icon-plane"></i>Travel</a>
+    <a href="#" class="active"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Home</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>Tasks</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 7h-3a2 2 0 0 1-2-2V2"/><path d="M9 18a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h7l4 4v10a2 2 0 0 1-2 2Z"/><path d="M3 7.6v12.8A1.6 1.6 0 0 0 4.6 22h9.8"/></svg>Projects</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>Deliverables</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>Second Brain</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 9 7 12 7s5-3 7.5-3a2.5 2.5 0 0 1 0 5H18"/><path d="M18 9v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><path d="M12 7v15"/></svg>Team</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>Travel</a>
     <div class="ds-sep"></div>
     <div class="ds-label">Life Areas</div>
-    <a href="#"><i class="icon-church"></i>Faith</a>
-    <a href="#"><i class="icon-heart"></i>Marriage</a>
-    <a href="#"><i class="icon-users"></i>Fatherhood</a>
-    <a href="#"><i class="icon-dumbbell"></i>Health</a>
-    <a href="#"><i class="icon-brain"></i>Mind</a>
-    <a href="#"><i class="icon-target"></i>Skills</a>
-    <a href="#"><i class="icon-briefcase"></i>Career</a>
-    <a href="#"><i class="icon-wallet"></i>Finance</a>
-    <a href="#"><i class="icon-settings"></i>Systems</a>
-    <a href="#"><i class="icon-handshake"></i>Relationships</a>
-    <a href="#"><i class="icon-compass"></i>Adventure</a>
-    <a href="#"><i class="icon-landmark"></i>Legacy</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v8"/><path d="M8 6h8"/><path d="M12 10v12"/></svg>Faith</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>Marriage</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Fatherhood</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Health</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>Mind</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Skills</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>Career</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Finance</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Systems</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>Relationships</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Adventure</a>
+    <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>Legacy</a>
   </div>
 </div>
 
@@ -345,36 +343,50 @@ i[class^="icon-"]{font-size:18px;line-height:1;display:inline-flex}
       <div class="section-head"><div class="section-title">Life Areas</div><div class="section-action">See all →</div></div>
       
       <!-- Mobile scroll -->
-      <div class="area-scroll">
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-faith"><i class="icon-church"></i></div><div class="area-name">Faith</div><div class="area-meta">3 items · 1 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:60%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-marriage"><i class="icon-heart"></i></div><div class="area-name">Marriage</div><div class="area-meta">2 items · 1 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:50%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-gray"></div><div class="area-icon-wrap ai-fatherhood"><i class="icon-users"></i></div><div class="area-name">Fatherhood</div><div class="area-meta">No items yet</div><div class="area-progress"><div class="area-progress-fill" style="width:0%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-amber"></div><div class="area-icon-wrap ai-health"><i class="icon-dumbbell"></i></div><div class="area-name">Health</div><div class="area-meta">4 items · 1 blocked</div><div class="area-progress"><div class="area-progress-fill apf-amber" style="width:40%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-mind"><i class="icon-brain"></i></div><div class="area-name">Mind</div><div class="area-meta">5 items · 3 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:75%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-skills"><i class="icon-target"></i></div><div class="area-name">Skills</div><div class="area-meta">6 items · 2 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:65%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-career"><i class="icon-briefcase"></i></div><div class="area-name">Career</div><div class="area-meta">8 items · 4 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:80%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-red"></div><div class="area-icon-wrap ai-finance"><i class="icon-wallet"></i></div><div class="area-name">Finance</div><div class="area-meta">3 items · 1 blocked</div><div class="area-progress"><div class="area-progress-fill apf-red" style="width:30%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-systems"><i class="icon-settings"></i></div><div class="area-name">Systems</div><div class="area-meta">5 items · 3 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:70%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-gray"></div><div class="area-icon-wrap ai-relationships"><i class="icon-handshake"></i></div><div class="area-name">Relationships</div><div class="area-meta">No items yet</div><div class="area-progress"><div class="area-progress-fill" style="width:0%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-adventure"><i class="icon-compass"></i></div><div class="area-name">Adventure</div><div class="area-meta">2 items · 1 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:50%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-gray"></div><div class="area-icon-wrap ai-legacy"><i class="icon-landmark"></i></div><div class="area-name">Legacy</div><div class="area-meta">No items yet</div><div class="area-progress"><div class="area-progress-fill" style="width:0%"></div></div></div>
-      </div>
-
+      <div class="area-scroll" id="areaScrollMobile"></div>
       <!-- Desktop grid -->
-      <div class="area-grid-desk">
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-faith"><i class="icon-church"></i></div><div class="area-name">Faith</div><div class="area-meta">3 items · 1 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:60%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-marriage"><i class="icon-heart"></i></div><div class="area-name">Marriage</div><div class="area-meta">2 items · 1 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:50%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-gray"></div><div class="area-icon-wrap ai-fatherhood"><i class="icon-users"></i></div><div class="area-name">Fatherhood</div><div class="area-meta">No items yet</div><div class="area-progress"><div class="area-progress-fill" style="width:0%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-amber"></div><div class="area-icon-wrap ai-health"><i class="icon-dumbbell"></i></div><div class="area-name">Health</div><div class="area-meta">4 items · 1 blocked</div><div class="area-progress"><div class="area-progress-fill apf-amber" style="width:40%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-mind"><i class="icon-brain"></i></div><div class="area-name">Mind</div><div class="area-meta">5 items · 3 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:75%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-skills"><i class="icon-target"></i></div><div class="area-name">Skills</div><div class="area-meta">6 items · 2 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:65%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-career"><i class="icon-briefcase"></i></div><div class="area-name">Career</div><div class="area-meta">8 items · 4 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:80%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-red"></div><div class="area-icon-wrap ai-finance"><i class="icon-wallet"></i></div><div class="area-name">Finance</div><div class="area-meta">3 items · 1 blocked</div><div class="area-progress"><div class="area-progress-fill apf-red" style="width:30%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-systems"><i class="icon-settings"></i></div><div class="area-name">Systems</div><div class="area-meta">5 items · 3 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:70%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-gray"></div><div class="area-icon-wrap ai-relationships"><i class="icon-handshake"></i></div><div class="area-name">Relationships</div><div class="area-meta">No items yet</div><div class="area-progress"><div class="area-progress-fill" style="width:0%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-adventure"><i class="icon-compass"></i></div><div class="area-name">Adventure</div><div class="area-meta">2 items · 1 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:50%"></div></div></div>
-        <div class="area-card"><div class="area-card-accent ac-gray"></div><div class="area-icon-wrap ai-legacy"><i class="icon-landmark"></i></div><div class="area-name">Legacy</div><div class="area-meta">No items yet</div><div class="area-progress"><div class="area-progress-fill" style="width:0%"></div></div></div>
-      </div>
+      <div class="area-grid-desk" id="areaGridDesktop"></div>
+      <script>
+      // SVG icons for each life area — clean line art, no emoji
+      const areaData = [
+        { name:'Faith', cls:'ai-faith', accent:'ac-green', meta:'3 items · 1 active', pct:60, pfill:'apf-green',
+          svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v8"/><path d="M8 6h8"/><path d="M12 10v12"/></svg>' },
+        { name:'Marriage', cls:'ai-marriage', accent:'ac-green', meta:'2 items · 1 active', pct:50, pfill:'apf-green',
+          svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>' },
+        { name:'Fatherhood', cls:'ai-fatherhood', accent:'ac-gray', meta:'No items yet', pct:0, pfill:'',
+          svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
+        { name:'Health', cls:'ai-health', accent:'ac-amber', meta:'4 items · 1 blocked', pct:40, pfill:'apf-amber',
+          svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>' },
+        { name:'Mind', cls:'ai-mind', accent:'ac-green', meta:'5 items · 3 active', pct:75, pfill:'apf-green',
+          svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>' },
+        { name:'Skills', cls:'ai-skills', accent:'ac-green', meta:'6 items · 2 active', pct:65, pfill:'apf-green',
+          svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>' },
+        { name:'Career', cls:'ai-career', accent:'ac-green', meta:'8 items · 4 active', pct:80, pfill:'apf-green',
+          svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>' },
+        { name:'Finance', cls:'ai-finance', accent:'ac-red', meta:'3 items · 1 blocked', pct:30, pfill:'apf-red',
+          svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>' },
+        { name:'Systems', cls:'ai-systems', accent:'ac-green', meta:'5 items · 3 active', pct:70, pfill:'apf-green',
+          svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>' },
+        { name:'Relationships', cls:'ai-relationships', accent:'ac-gray', meta:'No items yet', pct:0, pfill:'',
+          svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>' },
+        { name:'Adventure', cls:'ai-adventure', accent:'ac-green', meta:'2 items · 1 active', pct:50, pfill:'apf-green',
+          svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>' },
+        { name:'Legacy', cls:'ai-legacy', accent:'ac-gray', meta:'No items yet', pct:0, pfill:'',
+          svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>' },
+      ];
+      function renderCards(container){
+        container.innerHTML = areaData.map(a => `
+          <div class="area-card">
+            <div class="area-card-accent ${a.accent}"></div>
+            <div class="area-icon-wrap ${a.cls}">${a.svg}</div>
+            <div class="area-name">${a.name}</div>
+            <div class="area-meta">${a.meta}</div>
+            <div class="area-progress"><div class="area-progress-fill ${a.pfill}" style="width:${a.pct}%"></div></div>
+          </div>`).join('');
+      }
+      renderCards(document.getElementById('areaScrollMobile'));
+      renderCards(document.getElementById('areaGridDesktop'));
+      </script>
     </div>
 
     <!-- Active Tasks -->
@@ -382,29 +394,29 @@ i[class^="icon-"]{font-size:18px;line-height:1;display:inline-flex}
       <div class="section-head"><div class="section-title">Active Tasks</div><div class="section-action">All tasks →</div></div>
       <div class="tasks">
         <div class="task">
-          <div class="task-check"><i class="icon-check"></i></div>
+          <div class="task-check"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
           <div class="task-body"><div class="task-title">Deploy scoring engine to training portal</div><span class="task-cat tc-career">Career</span></div>
-          <div class="task-arrow"><i class="icon-chevron-right"></i></div>
+          <div class="task-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg></div>
         </div>
         <div class="task">
-          <div class="task-check"><i class="icon-check"></i></div>
+          <div class="task-check"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
           <div class="task-body"><div class="task-title">Seed KB v2 entries into Neon DB</div><span class="task-cat tc-systems">Systems</span></div>
-          <div class="task-arrow"><i class="icon-chevron-right"></i></div>
+          <div class="task-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg></div>
         </div>
         <div class="task">
-          <div class="task-check"><i class="icon-check"></i></div>
+          <div class="task-check"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
           <div class="task-body"><div class="task-title">Update Fieldy — life category classification</div><span class="task-cat tc-systems">Systems</span></div>
-          <div class="task-arrow"><i class="icon-chevron-right"></i></div>
+          <div class="task-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg></div>
         </div>
         <div class="task">
-          <div class="task-check done"><i class="icon-check"></i></div>
+          <div class="task-check done"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
           <div class="task-body"><div class="task-title struck">Build 16 people profiles</div><span class="task-cat tc-career">Career</span></div>
-          <div class="task-arrow"><i class="icon-chevron-right"></i></div>
+          <div class="task-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg></div>
         </div>
         <div class="task">
-          <div class="task-check done"><i class="icon-check"></i></div>
+          <div class="task-check done"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
           <div class="task-body"><div class="task-title struck">Push KB v2 code to GitHub</div><span class="task-cat tc-systems">Systems</span></div>
-          <div class="task-arrow"><i class="icon-chevron-right"></i></div>
+          <div class="task-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg></div>
         </div>
       </div>
     </div>
