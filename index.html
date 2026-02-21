@@ -5,249 +5,274 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Mission Control</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/lucide-static@latest/font/lucide.min.css" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0a0a0f;
-  --card:#12121a;
-  --card-hover:#181822;
-  --border:rgba(255,255,255,0.05);
-  --text:#e8e8ed;
-  --muted:#6e6e80;
-  --dim:#3e3e4a;
-  --blue:#636bff;
-  --blue-glow:rgba(99,107,255,0.12);
-  --green:#3ecf8e;
-  --red:#ff6369;
-  --amber:#ffbd2e;
-  --purple:#bf6bff;
-  --cyan:#2dd4bf;
-  --radius:16px;
+  --bg:#f8f8fa;
+  --white:#ffffff;
+  --card:#ffffff;
+  --border:#e5e5eb;
+  --border-light:#f0f0f5;
+  --text:#1a1a2e;
+  --text-secondary:#6b6b80;
+  --text-dim:#9b9bb0;
+  --accent:#5046e5;
+  --accent-light:#ededff;
+  --accent-soft:rgba(80,70,229,0.08);
+  --green:#10b981;
+  --green-bg:#ecfdf5;
+  --red:#ef4444;
+  --red-bg:#fef2f2;
+  --amber:#f59e0b;
+  --amber-bg:#fffbeb;
+  --blue:#3b82f6;
+  --blue-bg:#eff6ff;
+  --purple:#8b5cf6;
+  --purple-bg:#f5f3ff;
+  --cyan:#06b6d4;
+  --cyan-bg:#ecfeff;
+  --pink:#ec4899;
+  --pink-bg:#fdf2f8;
+  --orange:#f97316;
+  --orange-bg:#fff7ed;
+  --radius:14px;
+  --shadow:0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.02);
+  --shadow-md:0 4px 12px rgba(0,0,0,0.06),0 1px 3px rgba(0,0,0,0.04);
 }
 html{scroll-behavior:smooth}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.5;overflow-x:hidden}
 
-/* === LAYOUT === */
+/* Lucide icon sizing */
+i[class^="icon-"]{font-size:18px;line-height:1;display:inline-flex}
+
+/* === SHELL === */
 .shell{min-height:100dvh;display:flex;flex-direction:column}
 
 /* === TOPBAR === */
 .topbar{
   display:flex;align-items:center;justify-content:space-between;
   padding:10px 16px;padding-top:calc(10px + env(safe-area-inset-top,0px));
-  background:rgba(10,10,15,0.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border-light);
 }
-.logo{display:flex;align-items:center;gap:8px}
-.logo-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff}
-.logo-text{font-size:15px;font-weight:700;letter-spacing:-0.02em;color:var(--text)}
-.logo-text span{color:var(--muted);font-weight:400}
-.topbar-actions{display:flex;align-items:center;gap:8px}
-.icon-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
-.icon-btn:active{transform:scale(.92);background:var(--card)}
-.icon-btn svg{width:16px;height:16px}
-.avatar-sm{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--blue-glow),rgba(191,107,255,0.12));border:1.5px solid rgba(99,107,255,0.25);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--blue)}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 2px 8px rgba(80,70,229,0.3)}
+.logo-icon i{font-size:16px}
+.logo-name{font-size:16px;font-weight:800;letter-spacing:-0.03em;color:var(--text)}
+.topbar-right{display:flex;align-items:center;gap:6px}
+.tb-btn{width:36px;height:36px;border-radius:10px;border:none;background:transparent;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s}
+.tb-btn:active{background:var(--border-light);transform:scale(.92)}
+.tb-btn i{font-size:18px}
+.avatar{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--accent-light),var(--purple-bg));border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--accent)}
 
-/* === MAIN SCROLL === */
-.main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
-.container{padding:20px 16px;max-width:960px;margin:0 auto}
+/* === CONTENT === */
+.main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+.container{padding:16px;max-width:960px;margin:0 auto}
 
-/* === GREETING BANNER === */
-.banner{
-  background:linear-gradient(135deg,rgba(99,107,255,0.08) 0%,rgba(191,107,255,0.06) 50%,rgba(62,207,142,0.04) 100%);
-  border:1px solid rgba(99,107,255,0.1);border-radius:var(--radius);
-  padding:24px 20px;margin-bottom:20px;position:relative;overflow:hidden;
+/* === GREETING CARD === */
+.greeting{
+  background:linear-gradient(135deg,#5046e5 0%,#7c3aed 40%,#a855f7 100%);
+  border-radius:18px;padding:24px 20px;margin-bottom:16px;color:#fff;
+  position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(80,70,229,0.25);
 }
-.banner::before{content:'';position:absolute;top:-40%;right:-10%;width:200px;height:200px;background:radial-gradient(circle,rgba(99,107,255,0.1),transparent 70%);pointer-events:none}
-.banner-eyebrow{font-size:11px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px}
-.banner h1{font-size:22px;font-weight:800;letter-spacing:-0.03em;line-height:1.2;margin-bottom:4px}
-.banner p{font-size:13px;color:var(--muted)}
-.banner-chips{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
-.chip{padding:5px 10px;border-radius:8px;font-size:11px;font-weight:600;border:1px solid;display:inline-flex;align-items:center;gap:4px}
-.chip-blue{background:rgba(99,107,255,0.08);border-color:rgba(99,107,255,0.15);color:var(--blue)}
-.chip-green{background:rgba(62,207,142,0.08);border-color:rgba(62,207,142,0.15);color:var(--green)}
-.chip-amber{background:rgba(255,189,46,0.08);border-color:rgba(255,189,46,0.15);color:var(--amber)}
-
-/* === METRIC STRIP === */
-.metrics{display:flex;gap:4px;margin-bottom:20px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 0}
-.metrics::-webkit-scrollbar{display:none}
-.metric{flex:1;min-width:0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center;position:relative}
-.metric-val{font-size:24px;font-weight:800;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;line-height:1}
-.metric-label{font-size:9px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px}
-.metric-val.c-green{color:var(--green)}
-.metric-val.c-blue{color:var(--blue)}
-.metric-val.c-red{color:var(--red)}
-.metric-val.c-purple{color:var(--purple)}
-.metric-val.c-muted{color:var(--dim)}
+.greeting::before{content:'';position:absolute;top:-30%;right:-15%;width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,0.12),transparent 70%);pointer-events:none}
+.greeting::after{content:'';position:absolute;bottom:-20%;left:-10%;width:120px;height:120px;background:radial-gradient(circle,rgba(255,255,255,0.08),transparent 70%);pointer-events:none}
+.greeting-date{font-size:12px;font-weight:500;opacity:.7;margin-bottom:4px}
+.greeting h1{font-size:24px;font-weight:800;letter-spacing:-0.03em;margin-bottom:2px}
+.greeting p{font-size:13px;opacity:.8}
+.greeting-stats{display:flex;gap:8px;margin-top:14px}
+.g-stat{background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border-radius:10px;padding:8px 12px;flex:1;text-align:center;border:1px solid rgba(255,255,255,0.1)}
+.g-stat-val{font-size:20px;font-weight:800;line-height:1}
+.g-stat-label{font-size:9px;font-weight:600;opacity:.7;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px}
 
 /* === SECTION === */
-.section{margin-bottom:24px}
-.section-title{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.section{margin-bottom:20px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.section-title{font-size:15px;font-weight:700;letter-spacing:-0.02em}
+.section-action{font-size:12px;font-weight:600;color:var(--accent);cursor:pointer;-webkit-tap-highlight-color:transparent}
 
-/* === AREA CARDS — the big change: horizontal scrollable cards on mobile === */
-.area-scroll{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 0;margin:0 -16px;padding-left:16px;padding-right:16px}
+/* === LIFE AREA CARDS === */
+.area-scroll{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 -16px;padding:2px 16px}
 .area-scroll::-webkit-scrollbar{display:none}
 .area-card{
-  flex-shrink:0;width:160px;
-  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-  padding:16px;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;
-  position:relative;overflow:hidden;
+  flex-shrink:0;width:140px;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:14px;cursor:pointer;transition:all .2s;
+  -webkit-tap-highlight-color:transparent;box-shadow:var(--shadow);position:relative;overflow:hidden;
 }
-.area-card:active{transform:scale(.96)}
-.area-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0}
-.area-card.s-active::before{background:linear-gradient(90deg,var(--green),var(--cyan))}
-.area-card.s-blocked::before{background:linear-gradient(90deg,var(--red),var(--amber))}
-.area-card.s-steady::before{background:linear-gradient(90deg,var(--amber),var(--green))}
-.area-card.s-idle::before{background:var(--dim)}
-.area-icon{font-size:28px;margin-bottom:10px;display:block}
-.area-name{font-size:14px;font-weight:700;margin-bottom:4px;letter-spacing:-0.01em}
-.area-meta{font-size:11px;color:var(--muted);margin-bottom:8px}
-.area-bar{height:3px;background:rgba(255,255,255,0.04);border-radius:2px;overflow:hidden}
-.area-bar-fill{height:100%;border-radius:2px}
-.fill-green{background:var(--green)}
-.fill-red{background:var(--red)}
-.fill-amber{background:var(--amber)}
-.fill-dim{background:var(--dim)}
+.area-card:active{transform:scale(.96);box-shadow:var(--shadow-md)}
+.area-card-accent{position:absolute;top:0;left:0;right:0;height:3px}
+.ac-green{background:linear-gradient(90deg,var(--green),var(--cyan))}
+.ac-red{background:linear-gradient(90deg,var(--red),var(--orange))}
+.ac-amber{background:linear-gradient(90deg,var(--amber),var(--orange))}
+.ac-gray{background:var(--border)}
+.area-icon-wrap{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:18px}
+.area-icon-wrap i{font-size:20px}
+.ai-faith{background:var(--amber-bg);color:var(--amber)}
+.ai-marriage{background:var(--pink-bg);color:var(--pink)}
+.ai-fatherhood{background:var(--blue-bg);color:var(--blue)}
+.ai-health{background:var(--green-bg);color:var(--green)}
+.ai-mind{background:var(--cyan-bg);color:var(--cyan)}
+.ai-skills{background:var(--purple-bg);color:var(--purple)}
+.ai-career{background:var(--accent-soft);color:var(--accent)}
+.ai-finance{background:var(--orange-bg);color:var(--orange)}
+.ai-systems{background:#f0f0ff;color:#6366f1}
+.ai-relationships{background:var(--pink-bg);color:var(--pink)}
+.ai-adventure{background:var(--cyan-bg);color:var(--cyan)}
+.ai-legacy{background:var(--amber-bg);color:#92400e}
+.area-name{font-size:13px;font-weight:700;margin-bottom:2px;letter-spacing:-0.01em}
+.area-meta{font-size:11px;color:var(--text-dim)}
+.area-progress{margin-top:8px;height:4px;background:var(--border-light);border-radius:2px;overflow:hidden}
+.area-progress-fill{height:100%;border-radius:2px}
+.apf-green{background:var(--green)}
+.apf-red{background:var(--red)}
+.apf-amber{background:var(--amber)}
 
-/* Grid mode for desktop */
-.area-grid{display:none}
+/* === TASK CARDS === */
+.tasks{display:flex;flex-direction:column;gap:8px}
+.task{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);-webkit-tap-highlight-color:transparent;transition:all .15s}
+.task:active{box-shadow:var(--shadow-md)}
+.task-check{width:22px;height:22px;border-radius:7px;border:2px solid var(--border);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.task-check:active{border-color:var(--green)}
+.task-check.done{background:var(--green);border-color:var(--green)}
+.task-check.done i{display:block}
+.task-check i{display:none;font-size:12px;color:#fff}
+.task-body{flex:1;min-width:0}
+.task-title{font-size:13px;font-weight:600;letter-spacing:-0.01em}
+.task-title.struck{text-decoration:line-through;color:var(--text-dim)}
+.task-cat{font-size:10px;font-weight:600;margin-top:2px;display:inline-block;padding:2px 6px;border-radius:4px}
+.tc-career{background:var(--accent-soft);color:var(--accent)}
+.tc-systems{background:var(--purple-bg);color:var(--purple)}
+.tc-health{background:var(--green-bg);color:var(--green)}
+.task-arrow{color:var(--text-dim);flex-shrink:0}
+.task-arrow i{font-size:16px}
 
-/* === TASK PREVIEW LIST === */
-.task-list{display:flex;flex-direction:column;gap:6px}
-.task-row{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:all .15s;-webkit-tap-highlight-color:transparent}
-.task-row:active{background:var(--card-hover)}
-.task-check{width:18px;height:18px;border-radius:6px;border:2px solid var(--dim);flex-shrink:0;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
-.task-check:active{border-color:var(--green);background:rgba(62,207,142,0.1)}
-.task-check.done{border-color:var(--green);background:var(--green)}
-.task-check.done svg{display:block}
-.task-check svg{display:none;width:10px;height:10px;color:#fff}
-.task-text{flex:1;font-size:13px;font-weight:500;letter-spacing:-0.01em}
-.task-text.done-text{text-decoration:line-through;color:var(--dim)}
-.task-tag{font-size:9px;padding:3px 7px;border-radius:5px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
-.tag-career{background:rgba(99,107,255,0.1);color:var(--blue)}
-.tag-systems{background:rgba(191,107,255,0.1);color:var(--purple)}
-.tag-health{background:rgba(62,207,142,0.1);color:var(--green)}
-.tag-mind{background:rgba(45,212,191,0.1);color:var(--cyan)}
-.tag-faith{background:rgba(255,189,46,0.1);color:var(--amber)}
-
-/* === VELOCITY RING === */
-.velocity-row{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 0}
-.velocity-row::-webkit-scrollbar{display:none}
-.vel-card{flex:1;min-width:140px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
-.vel-ring{width:72px;height:72px;margin:0 auto 10px;position:relative}
-.vel-ring svg{width:72px;height:72px;transform:rotate(-90deg)}
-.vel-ring circle{fill:none;stroke-width:5;stroke-linecap:round}
-.vel-ring .track{stroke:rgba(255,255,255,0.04)}
-.vel-ring .fill-g{stroke:var(--green)}
-.vel-ring .fill-b{stroke:var(--blue)}
-.vel-ring .fill-a{stroke:var(--amber)}
-.vel-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;letter-spacing:-0.02em}
-.vel-label{font-size:12px;font-weight:600;margin-bottom:2px}
-.vel-desc{font-size:10px;color:var(--muted)}
+/* === PERFORMANCE RINGS === */
+.perf-row{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 0}
+.perf-row::-webkit-scrollbar{display:none}
+.perf-card{flex:1;min-width:130px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;box-shadow:var(--shadow)}
+.ring-wrap{width:80px;height:80px;margin:0 auto 8px;position:relative}
+.ring-wrap svg{width:80px;height:80px;transform:rotate(-90deg)}
+.ring-wrap circle{fill:none;stroke-width:6;stroke-linecap:round}
+.ring-track{stroke:var(--border-light)}
+.ring-fill-g{stroke:var(--green)}
+.ring-fill-b{stroke:var(--accent)}
+.ring-fill-a{stroke:var(--amber)}
+.ring-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;letter-spacing:-0.02em}
+.perf-label{font-size:13px;font-weight:700;margin-bottom:2px}
+.perf-desc{font-size:11px;color:var(--text-dim)}
 
 /* === BOTTOM NAV === */
 .bnav{
   position:fixed;bottom:0;left:0;right:0;
-  background:rgba(10,10,15,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border-top:1px solid var(--border);
-  display:flex;justify-content:space-around;
-  padding:6px 0;padding-bottom:calc(6px + env(safe-area-inset-bottom,0px));
-  z-index:50;
+  background:rgba(255,255,255,0.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid var(--border-light);display:flex;justify-content:space-around;
+  padding:6px 0;padding-bottom:calc(6px + env(safe-area-inset-bottom,0px));z-index:50;
 }
-.bnav-item{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 14px;color:var(--dim);text-decoration:none;font-size:10px;font-weight:500;-webkit-tap-highlight-color:transparent;transition:color .15s}
-.bnav-item:active{transform:scale(.9)}
-.bnav-item.active{color:var(--blue)}
-.bnav-icon{font-size:20px;line-height:1}
-
-/* === SIDEBAR (desktop) === */
-.desktop-sidebar{display:none}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 14px;color:var(--text-dim);text-decoration:none;font-size:10px;font-weight:500;-webkit-tap-highlight-color:transparent;transition:color .15s}
+.bnav-item:active{transform:scale(.88)}
+.bnav-item.active{color:var(--accent)}
+.bnav-item i{font-size:20px}
 
 /* === DRAWER === */
-.drawer-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);z-index:60;opacity:0;pointer-events:none;transition:opacity .2s}
+.drawer-bg{position:fixed;inset:0;background:rgba(0,0,0,.3);backdrop-filter:blur(4px);z-index:60;opacity:0;pointer-events:none;transition:opacity .2s}
 .drawer-bg.open{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;left:0;bottom:0;width:280px;background:var(--bg);border-right:1px solid var(--border);z-index:70;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.drawer{position:fixed;top:0;left:0;bottom:0;width:280px;background:var(--white);z-index:70;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:4px 0 24px rgba(0,0,0,0.08)}
 .drawer-bg.open .drawer{transform:translateX(0)}
-.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border)}
-.drawer-head .logo-mark{width:24px;height:24px;border-radius:6px;font-size:11px}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-light)}
+.drawer-head-logo{display:flex;align-items:center;gap:8px}
+.drawer-head-logo .logo-icon{width:26px;height:26px;border-radius:8px}
+.drawer-head-logo .logo-icon i{font-size:13px}
+.drawer-head-logo span{font-size:15px;font-weight:800;letter-spacing:-0.02em}
+.drawer-close{border:none;background:none;color:var(--text-dim);padding:4px;cursor:pointer}
+.drawer-close i{font-size:20px}
 .drawer-nav{padding:10px 8px;flex:1}
-.drawer-nav a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;color:var(--muted);font-size:14px;text-decoration:none;margin-bottom:1px;-webkit-tap-highlight-color:transparent;transition:all .15s}
-.drawer-nav a:active{background:rgba(255,255,255,0.03)}
-.drawer-nav a.active{color:var(--blue);background:var(--blue-glow);font-weight:600}
-.drawer-nav a .di{font-size:18px;width:24px;text-align:center}
-.drawer-sep{height:1px;background:var(--border);margin:6px 14px}
-.drawer-label{font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:0.12em;padding:10px 14px 4px}
+.drawer-nav a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;color:var(--text-secondary);font-size:14px;font-weight:500;text-decoration:none;margin-bottom:1px;-webkit-tap-highlight-color:transparent;transition:all .12s}
+.drawer-nav a:active{background:var(--bg)}
+.drawer-nav a.active{color:var(--accent);background:var(--accent-soft);font-weight:600}
+.drawer-nav a i{font-size:18px;width:24px;text-align:center}
+.drawer-sep{height:1px;background:var(--border-light);margin:6px 14px}
+.drawer-label{font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em;padding:10px 14px 4px}
 
 /* === DESKTOP === */
+.desktop-side{display:none}
 @media(min-width:768px){
   .shell{flex-direction:row}
   .bnav{display:none}
   .main{padding-bottom:0}
-  .container{padding:32px}
-  .banner h1{font-size:28px}
+  .container{padding:28px 32px}
+  .greeting h1{font-size:28px}
+  .greeting-stats{gap:12px}
   .area-scroll{display:none}
-  .area-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .area-grid .area-card{width:auto;flex-shrink:unset}
-  .desktop-sidebar{
-    display:flex;flex-direction:column;width:220px;flex-shrink:0;
-    background:var(--bg);border-right:1px solid var(--border);height:100vh;position:sticky;top:0;overflow-y:auto;
+  .area-grid-desk{display:grid!important;grid-template-columns:repeat(3,1fr);gap:10px}
+  .area-grid-desk .area-card{width:auto;flex-shrink:unset}
+  .perf-row{gap:12px}
+  .desktop-side{
+    display:flex;flex-direction:column;width:230px;flex-shrink:0;
+    background:var(--white);border-right:1px solid var(--border-light);height:100vh;position:sticky;top:0;overflow-y:auto;
   }
-  .ds-brand{padding:16px 16px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+  .ds-brand{padding:16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border-light)}
+  .ds-brand .logo-icon{width:28px;height:28px;border-radius:8px}
+  .ds-brand .logo-icon i{font-size:14px}
+  .ds-brand span{font-size:15px;font-weight:800;letter-spacing:-0.02em}
   .ds-nav{padding:10px 6px;flex:1}
-  .ds-nav a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:var(--muted);font-size:13px;text-decoration:none;margin-bottom:1px;transition:all .12s}
-  .ds-nav a:hover{background:rgba(255,255,255,0.03);color:var(--text)}
-  .ds-nav a.active{color:var(--blue);background:var(--blue-glow);font-weight:600}
-  .ds-nav a .di{font-size:16px;width:22px;text-align:center}
-  .ds-sep{height:1px;background:var(--border);margin:6px 10px}
-  .ds-label{font-size:9px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:0.12em;padding:8px 10px 3px}
-  .topbar .menu-icon{display:none}
+  .ds-nav a{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;color:var(--text-secondary);font-size:13px;font-weight:500;text-decoration:none;margin-bottom:1px;transition:all .12s}
+  .ds-nav a:hover{background:var(--bg);color:var(--text)}
+  .ds-nav a.active{color:var(--accent);background:var(--accent-soft);font-weight:600}
+  .ds-nav a i{font-size:16px;width:22px;text-align:center}
+  .ds-sep{height:1px;background:var(--border-light);margin:6px 10px}
+  .ds-label{font-size:9px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em;padding:8px 10px 3px}
+  .menu-mobile{display:none!important}
 }
 @media(min-width:1024px){
-  .area-grid{grid-template-columns:repeat(4,1fr)}
-  .desktop-sidebar{width:240px}
+  .area-grid-desk{grid-template-columns:repeat(4,1fr)!important}
+  .desktop-side{width:250px}
 }
+
+/* desktop grid hidden by default on mobile */
+.area-grid-desk{display:none}
 
 /* === ANIMATIONS === */
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
 .anim{animation:fadeUp .5s ease-out forwards}
-.d1{animation-delay:0s}.d2{animation-delay:.08s;opacity:0}.d3{animation-delay:.16s;opacity:0}.d4{animation-delay:.24s;opacity:0}.d5{animation-delay:.32s;opacity:0}
+.anim-s{animation:scaleIn .4s ease-out forwards}
+.d1{animation-delay:0s}.d2{animation-delay:.06s;opacity:0}.d3{animation-delay:.12s;opacity:0}.d4{animation-delay:.18s;opacity:0}.d5{animation-delay:.24s;opacity:0}
 
-.mockup-tag{position:fixed;top:8px;right:8px;background:rgba(191,107,255,0.1);border:1px solid rgba(191,107,255,0.2);color:var(--purple);padding:3px 8px;border-radius:6px;font-size:9px;font-weight:700;z-index:100;letter-spacing:0.04em}
+.mockup-tag{position:fixed;top:8px;right:8px;background:var(--accent-soft);border:1px solid rgba(80,70,229,0.15);color:var(--accent);padding:3px 8px;border-radius:6px;font-size:9px;font-weight:700;z-index:100;letter-spacing:0.04em}
 </style>
 </head>
 <body>
 
-<!-- Mobile Drawer -->
+<!-- Drawer (mobile) -->
 <div class="drawer-bg" id="drawer" onclick="closeDrawer()">
 <div class="drawer" onclick="event.stopPropagation()">
   <div class="drawer-head">
-    <div style="display:flex;align-items:center;gap:8px">
-      <div class="logo-mark">M</div>
-      <span style="font-size:14px;font-weight:700;letter-spacing:-0.01em">Mission Control</span>
-    </div>
-    <button class="icon-btn" onclick="closeDrawer()" style="border:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <div class="drawer-head-logo"><div class="logo-icon"><i class="icon-zap"></i></div><span>Mission Control</span></div>
+    <button class="drawer-close" onclick="closeDrawer()"><i class="icon-x"></i></button>
   </div>
   <div class="drawer-nav">
-    <a href="#" class="active"><span class="di">🏠</span>Home</a>
-    <a href="#"><span class="di">✅</span>Tasks</a>
-    <a href="#"><span class="di">📦</span>Projects</a>
-    <a href="#"><span class="di">📄</span>Deliverables</a>
-    <a href="#"><span class="di">🧠</span>Second Brain</a>
-    <a href="#"><span class="di">🏆</span>Team</a>
-    <a href="#"><span class="di">✈️</span>Travel</a>
+    <a href="#" class="active"><i class="icon-layout-dashboard"></i>Home</a>
+    <a href="#"><i class="icon-check-square"></i>Tasks</a>
+    <a href="#"><i class="icon-folder-kanban"></i>Projects</a>
+    <a href="#"><i class="icon-file-text"></i>Deliverables</a>
+    <a href="#"><i class="icon-brain"></i>Second Brain</a>
+    <a href="#"><i class="icon-trophy"></i>Team</a>
+    <a href="#"><i class="icon-plane"></i>Travel</a>
     <div class="drawer-sep"></div>
     <div class="drawer-label">Life Areas</div>
-    <a href="#"><span class="di">⛪</span>Faith</a>
-    <a href="#"><span class="di">💍</span>Marriage</a>
-    <a href="#"><span class="di">👨‍👧‍👦</span>Fatherhood</a>
-    <a href="#"><span class="di">💪</span>Health</a>
-    <a href="#"><span class="di">🧠</span>Mind</a>
-    <a href="#"><span class="di">🎯</span>Skills</a>
-    <a href="#"><span class="di">💼</span>Career</a>
-    <a href="#"><span class="di">💰</span>Finance</a>
-    <a href="#"><span class="di">⚙️</span>Systems</a>
-    <a href="#"><span class="di">🤝</span>Relationships</a>
-    <a href="#"><span class="di">🌍</span>Adventure</a>
-    <a href="#"><span class="di">🏛️</span>Legacy</a>
+    <a href="#"><i class="icon-church"></i>Faith</a>
+    <a href="#"><i class="icon-heart"></i>Marriage</a>
+    <a href="#"><i class="icon-users"></i>Fatherhood</a>
+    <a href="#"><i class="icon-dumbbell"></i>Health</a>
+    <a href="#"><i class="icon-brain"></i>Mind</a>
+    <a href="#"><i class="icon-target"></i>Skills</a>
+    <a href="#"><i class="icon-briefcase"></i>Career</a>
+    <a href="#"><i class="icon-wallet"></i>Finance</a>
+    <a href="#"><i class="icon-settings"></i>Systems</a>
+    <a href="#"><i class="icon-handshake"></i>Relationships</a>
+    <a href="#"><i class="icon-compass"></i>Adventure</a>
+    <a href="#"><i class="icon-landmark"></i>Legacy</a>
   </div>
 </div>
 </div>
@@ -255,33 +280,30 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 <div class="shell">
 
 <!-- Desktop Sidebar -->
-<div class="desktop-sidebar">
-  <div class="ds-brand">
-    <div class="logo-mark" style="width:24px;height:24px;border-radius:6px;font-size:11px">M</div>
-    <span style="font-size:14px;font-weight:700;letter-spacing:-0.01em">Mission Control</span>
-  </div>
+<div class="desktop-side">
+  <div class="ds-brand"><div class="logo-icon"><i class="icon-zap"></i></div><span>Mission Control</span></div>
   <div class="ds-nav">
-    <a href="#" class="active"><span class="di">🏠</span>Home</a>
-    <a href="#"><span class="di">✅</span>Tasks</a>
-    <a href="#"><span class="di">📦</span>Projects</a>
-    <a href="#"><span class="di">📄</span>Deliverables</a>
-    <a href="#"><span class="di">🧠</span>Second Brain</a>
-    <a href="#"><span class="di">🏆</span>Team</a>
-    <a href="#"><span class="di">✈️</span>Travel</a>
+    <a href="#" class="active"><i class="icon-layout-dashboard"></i>Home</a>
+    <a href="#"><i class="icon-check-square"></i>Tasks</a>
+    <a href="#"><i class="icon-folder-kanban"></i>Projects</a>
+    <a href="#"><i class="icon-file-text"></i>Deliverables</a>
+    <a href="#"><i class="icon-brain"></i>Second Brain</a>
+    <a href="#"><i class="icon-trophy"></i>Team</a>
+    <a href="#"><i class="icon-plane"></i>Travel</a>
     <div class="ds-sep"></div>
     <div class="ds-label">Life Areas</div>
-    <a href="#"><span class="di">⛪</span>Faith</a>
-    <a href="#"><span class="di">💍</span>Marriage</a>
-    <a href="#"><span class="di">👨‍👧‍👦</span>Fatherhood</a>
-    <a href="#"><span class="di">💪</span>Health</a>
-    <a href="#"><span class="di">🧠</span>Mind</a>
-    <a href="#"><span class="di">🎯</span>Skills</a>
-    <a href="#"><span class="di">💼</span>Career</a>
-    <a href="#"><span class="di">💰</span>Finance</a>
-    <a href="#"><span class="di">⚙️</span>Systems</a>
-    <a href="#"><span class="di">🤝</span>Relationships</a>
-    <a href="#"><span class="di">🌍</span>Adventure</a>
-    <a href="#"><span class="di">🏛️</span>Legacy</a>
+    <a href="#"><i class="icon-church"></i>Faith</a>
+    <a href="#"><i class="icon-heart"></i>Marriage</a>
+    <a href="#"><i class="icon-users"></i>Fatherhood</a>
+    <a href="#"><i class="icon-dumbbell"></i>Health</a>
+    <a href="#"><i class="icon-brain"></i>Mind</a>
+    <a href="#"><i class="icon-target"></i>Skills</a>
+    <a href="#"><i class="icon-briefcase"></i>Career</a>
+    <a href="#"><i class="icon-wallet"></i>Finance</a>
+    <a href="#"><i class="icon-settings"></i>Systems</a>
+    <a href="#"><i class="icon-handshake"></i>Relationships</a>
+    <a href="#"><i class="icon-compass"></i>Adventure</a>
+    <a href="#"><i class="icon-landmark"></i>Legacy</a>
   </div>
 </div>
 
@@ -289,172 +311,157 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   <!-- Topbar -->
   <div class="topbar">
     <div class="logo">
-      <button class="icon-btn menu-icon" onclick="openDrawer()" style="border:none"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5h14M3 10h14M3 15h14"/></svg></button>
-      <div class="logo-mark" style="display:none">M</div>
+      <button class="tb-btn menu-mobile" onclick="openDrawer()"><i class="icon-menu"></i></button>
+      <span class="logo-name" style="display:none">Mission Control</span>
     </div>
-    <div class="topbar-actions">
-      <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
-      <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></button>
-      <div class="avatar-sm">JM</div>
+    <div class="topbar-right">
+      <button class="tb-btn"><i class="icon-search"></i></button>
+      <button class="tb-btn"><i class="icon-bell"></i></button>
+      <div class="avatar">JM</div>
     </div>
   </div>
 
   <div class="container">
-    <!-- Banner -->
-    <div class="banner anim d1">
-      <div class="banner-eyebrow">Friday, Feb 20</div>
+    <!-- Greeting -->
+    <div class="greeting anim d1">
+      <div class="greeting-date">Friday, February 20</div>
       <h1>Good evening, Joel</h1>
-      <p>Vancouver trip day 1 · 3 tasks in motion</p>
-      <div class="banner-chips">
-        <span class="chip chip-green">✓ 2 done today</span>
-        <span class="chip chip-blue">3 in progress</span>
-        <span class="chip chip-amber">8 this week</span>
+      <p>Vancouver trip · All systems clear ✓</p>
+      <div class="greeting-stats">
+        <div class="g-stat"><div class="g-stat-val">2</div><div class="g-stat-label">Done</div></div>
+        <div class="g-stat"><div class="g-stat-val">3</div><div class="g-stat-label">Active</div></div>
+        <div class="g-stat"><div class="g-stat-val">0</div><div class="g-stat-label">Blocked</div></div>
+        <div class="g-stat"><div class="g-stat-val">7</div><div class="g-stat-label">Projects</div></div>
       </div>
     </div>
 
-    <!-- Metrics Strip -->
-    <div class="metrics anim d2">
-      <div class="metric"><div class="metric-val c-green">2</div><div class="metric-label">Done</div></div>
-      <div class="metric"><div class="metric-val c-blue">3</div><div class="metric-label">Active</div></div>
-      <div class="metric"><div class="metric-val c-muted">0</div><div class="metric-label">Blocked</div></div>
-      <div class="metric"><div class="metric-val c-muted">0</div><div class="metric-label">Overdue</div></div>
-      <div class="metric"><div class="metric-val c-purple">7</div><div class="metric-label">Projects</div></div>
-    </div>
-
-    <!-- Life Areas (mobile: horizontal scroll, desktop: grid) -->
-    <div class="section anim d3">
-      <div class="section-title">Life Areas</div>
+    <!-- Life Areas -->
+    <div class="section anim d2">
+      <div class="section-head"><div class="section-title">Life Areas</div><div class="section-action">See all →</div></div>
       
-      <!-- Mobile: scrollable -->
+      <!-- Mobile scroll -->
       <div class="area-scroll">
-        <div class="area-card s-active"><span class="area-icon">⛪</span><div class="area-name">Faith</div><div class="area-meta">3 items · 1 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:60%"></div></div></div>
-        <div class="area-card s-active"><span class="area-icon">💍</span><div class="area-name">Marriage</div><div class="area-meta">2 items · 1 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:50%"></div></div></div>
-        <div class="area-card s-idle"><span class="area-icon">👨‍👧‍👦</span><div class="area-name">Fatherhood</div><div class="area-meta">No items yet</div><div class="area-bar"><div class="area-bar-fill fill-dim" style="width:0%"></div></div></div>
-        <div class="area-card s-steady"><span class="area-icon">💪</span><div class="area-name">Health</div><div class="area-meta">4 items · 1 blocked</div><div class="area-bar"><div class="area-bar-fill fill-amber" style="width:40%"></div></div></div>
-        <div class="area-card s-active"><span class="area-icon">🧠</span><div class="area-name">Mind</div><div class="area-meta">5 items · 3 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:75%"></div></div></div>
-        <div class="area-card s-active"><span class="area-icon">🎯</span><div class="area-name">Skills</div><div class="area-meta">6 items · 2 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:65%"></div></div></div>
-        <div class="area-card s-active"><span class="area-icon">💼</span><div class="area-name">Career</div><div class="area-meta">8 items · 4 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:80%"></div></div></div>
-        <div class="area-card s-blocked"><span class="area-icon">💰</span><div class="area-name">Finance</div><div class="area-meta">3 items · 1 blocked</div><div class="area-bar"><div class="area-bar-fill fill-red" style="width:30%"></div></div></div>
-        <div class="area-card s-active"><span class="area-icon">⚙️</span><div class="area-name">Systems</div><div class="area-meta">5 items · 3 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:70%"></div></div></div>
-        <div class="area-card s-idle"><span class="area-icon">🤝</span><div class="area-name">Relations</div><div class="area-meta">No items yet</div><div class="area-bar"><div class="area-bar-fill fill-dim" style="width:0%"></div></div></div>
-        <div class="area-card s-active"><span class="area-icon">🌍</span><div class="area-name">Adventure</div><div class="area-meta">2 items · 1 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:50%"></div></div></div>
-        <div class="area-card s-idle"><span class="area-icon">🏛️</span><div class="area-name">Legacy</div><div class="area-meta">No items yet</div><div class="area-bar"><div class="area-bar-fill fill-dim" style="width:0%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-faith"><i class="icon-church"></i></div><div class="area-name">Faith</div><div class="area-meta">3 items · 1 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:60%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-marriage"><i class="icon-heart"></i></div><div class="area-name">Marriage</div><div class="area-meta">2 items · 1 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:50%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-gray"></div><div class="area-icon-wrap ai-fatherhood"><i class="icon-users"></i></div><div class="area-name">Fatherhood</div><div class="area-meta">No items yet</div><div class="area-progress"><div class="area-progress-fill" style="width:0%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-amber"></div><div class="area-icon-wrap ai-health"><i class="icon-dumbbell"></i></div><div class="area-name">Health</div><div class="area-meta">4 items · 1 blocked</div><div class="area-progress"><div class="area-progress-fill apf-amber" style="width:40%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-mind"><i class="icon-brain"></i></div><div class="area-name">Mind</div><div class="area-meta">5 items · 3 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:75%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-skills"><i class="icon-target"></i></div><div class="area-name">Skills</div><div class="area-meta">6 items · 2 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:65%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-career"><i class="icon-briefcase"></i></div><div class="area-name">Career</div><div class="area-meta">8 items · 4 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:80%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-red"></div><div class="area-icon-wrap ai-finance"><i class="icon-wallet"></i></div><div class="area-name">Finance</div><div class="area-meta">3 items · 1 blocked</div><div class="area-progress"><div class="area-progress-fill apf-red" style="width:30%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-systems"><i class="icon-settings"></i></div><div class="area-name">Systems</div><div class="area-meta">5 items · 3 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:70%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-gray"></div><div class="area-icon-wrap ai-relationships"><i class="icon-handshake"></i></div><div class="area-name">Relationships</div><div class="area-meta">No items yet</div><div class="area-progress"><div class="area-progress-fill" style="width:0%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-adventure"><i class="icon-compass"></i></div><div class="area-name">Adventure</div><div class="area-meta">2 items · 1 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:50%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-gray"></div><div class="area-icon-wrap ai-legacy"><i class="icon-landmark"></i></div><div class="area-name">Legacy</div><div class="area-meta">No items yet</div><div class="area-progress"><div class="area-progress-fill" style="width:0%"></div></div></div>
       </div>
 
-      <!-- Desktop: grid -->
-      <div class="area-grid">
-        <div class="area-card s-active"><span class="area-icon">⛪</span><div class="area-name">Faith</div><div class="area-meta">3 items · 1 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:60%"></div></div></div>
-        <div class="area-card s-active"><span class="area-icon">💍</span><div class="area-name">Marriage</div><div class="area-meta">2 items · 1 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:50%"></div></div></div>
-        <div class="area-card s-idle"><span class="area-icon">👨‍👧‍👦</span><div class="area-name">Fatherhood</div><div class="area-meta">No items yet</div><div class="area-bar"><div class="area-bar-fill fill-dim" style="width:0%"></div></div></div>
-        <div class="area-card s-steady"><span class="area-icon">💪</span><div class="area-name">Health</div><div class="area-meta">4 items · 1 blocked</div><div class="area-bar"><div class="area-bar-fill fill-amber" style="width:40%"></div></div></div>
-        <div class="area-card s-active"><span class="area-icon">🧠</span><div class="area-name">Mind</div><div class="area-meta">5 items · 3 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:75%"></div></div></div>
-        <div class="area-card s-active"><span class="area-icon">🎯</span><div class="area-name">Skills</div><div class="area-meta">6 items · 2 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:65%"></div></div></div>
-        <div class="area-card s-active"><span class="area-icon">💼</span><div class="area-name">Career</div><div class="area-meta">8 items · 4 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:80%"></div></div></div>
-        <div class="area-card s-blocked"><span class="area-icon">💰</span><div class="area-name">Finance</div><div class="area-meta">3 items · 1 blocked</div><div class="area-bar"><div class="area-bar-fill fill-red" style="width:30%"></div></div></div>
-        <div class="area-card s-active"><span class="area-icon">⚙️</span><div class="area-name">Systems</div><div class="area-meta">5 items · 3 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:70%"></div></div></div>
-        <div class="area-card s-idle"><span class="area-icon">🤝</span><div class="area-name">Relationships</div><div class="area-meta">No items yet</div><div class="area-bar"><div class="area-bar-fill fill-dim" style="width:0%"></div></div></div>
-        <div class="area-card s-active"><span class="area-icon">🌍</span><div class="area-name">Adventure</div><div class="area-meta">2 items · 1 active</div><div class="area-bar"><div class="area-bar-fill fill-green" style="width:50%"></div></div></div>
-        <div class="area-card s-idle"><span class="area-icon">🏛️</span><div class="area-name">Legacy</div><div class="area-meta">No items yet</div><div class="area-bar"><div class="area-bar-fill fill-dim" style="width:0%"></div></div></div>
+      <!-- Desktop grid -->
+      <div class="area-grid-desk">
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-faith"><i class="icon-church"></i></div><div class="area-name">Faith</div><div class="area-meta">3 items · 1 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:60%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-marriage"><i class="icon-heart"></i></div><div class="area-name">Marriage</div><div class="area-meta">2 items · 1 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:50%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-gray"></div><div class="area-icon-wrap ai-fatherhood"><i class="icon-users"></i></div><div class="area-name">Fatherhood</div><div class="area-meta">No items yet</div><div class="area-progress"><div class="area-progress-fill" style="width:0%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-amber"></div><div class="area-icon-wrap ai-health"><i class="icon-dumbbell"></i></div><div class="area-name">Health</div><div class="area-meta">4 items · 1 blocked</div><div class="area-progress"><div class="area-progress-fill apf-amber" style="width:40%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-mind"><i class="icon-brain"></i></div><div class="area-name">Mind</div><div class="area-meta">5 items · 3 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:75%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-skills"><i class="icon-target"></i></div><div class="area-name">Skills</div><div class="area-meta">6 items · 2 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:65%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-career"><i class="icon-briefcase"></i></div><div class="area-name">Career</div><div class="area-meta">8 items · 4 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:80%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-red"></div><div class="area-icon-wrap ai-finance"><i class="icon-wallet"></i></div><div class="area-name">Finance</div><div class="area-meta">3 items · 1 blocked</div><div class="area-progress"><div class="area-progress-fill apf-red" style="width:30%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-systems"><i class="icon-settings"></i></div><div class="area-name">Systems</div><div class="area-meta">5 items · 3 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:70%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-gray"></div><div class="area-icon-wrap ai-relationships"><i class="icon-handshake"></i></div><div class="area-name">Relationships</div><div class="area-meta">No items yet</div><div class="area-progress"><div class="area-progress-fill" style="width:0%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-green"></div><div class="area-icon-wrap ai-adventure"><i class="icon-compass"></i></div><div class="area-name">Adventure</div><div class="area-meta">2 items · 1 active</div><div class="area-progress"><div class="area-progress-fill apf-green" style="width:50%"></div></div></div>
+        <div class="area-card"><div class="area-card-accent ac-gray"></div><div class="area-icon-wrap ai-legacy"><i class="icon-landmark"></i></div><div class="area-name">Legacy</div><div class="area-meta">No items yet</div><div class="area-progress"><div class="area-progress-fill" style="width:0%"></div></div></div>
       </div>
     </div>
 
     <!-- Active Tasks -->
-    <div class="section anim d4">
-      <div class="section-title">Active Tasks</div>
-      <div class="task-list">
-        <div class="task-row">
-          <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
-          <div class="task-text">Deploy scoring engine to training portal</div>
-          <span class="task-tag tag-career">Career</span>
+    <div class="section anim d3">
+      <div class="section-head"><div class="section-title">Active Tasks</div><div class="section-action">All tasks →</div></div>
+      <div class="tasks">
+        <div class="task">
+          <div class="task-check"><i class="icon-check"></i></div>
+          <div class="task-body"><div class="task-title">Deploy scoring engine to training portal</div><span class="task-cat tc-career">Career</span></div>
+          <div class="task-arrow"><i class="icon-chevron-right"></i></div>
         </div>
-        <div class="task-row">
-          <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
-          <div class="task-text">Seed KB v2 entries into Neon DB</div>
-          <span class="task-tag tag-systems">Systems</span>
+        <div class="task">
+          <div class="task-check"><i class="icon-check"></i></div>
+          <div class="task-body"><div class="task-title">Seed KB v2 entries into Neon DB</div><span class="task-cat tc-systems">Systems</span></div>
+          <div class="task-arrow"><i class="icon-chevron-right"></i></div>
         </div>
-        <div class="task-row">
-          <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
-          <div class="task-text">Update Fieldy skill — life category classification</div>
-          <span class="task-tag tag-systems">Systems</span>
+        <div class="task">
+          <div class="task-check"><i class="icon-check"></i></div>
+          <div class="task-body"><div class="task-title">Update Fieldy — life category classification</div><span class="task-cat tc-systems">Systems</span></div>
+          <div class="task-arrow"><i class="icon-chevron-right"></i></div>
         </div>
-        <div class="task-row">
-          <div class="task-check done"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
-          <div class="task-text done-text">Build people profiles (16 files)</div>
-          <span class="task-tag tag-career">Career</span>
+        <div class="task">
+          <div class="task-check done"><i class="icon-check"></i></div>
+          <div class="task-body"><div class="task-title struck">Build 16 people profiles</div><span class="task-cat tc-career">Career</span></div>
+          <div class="task-arrow"><i class="icon-chevron-right"></i></div>
         </div>
-        <div class="task-row">
-          <div class="task-check done"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
-          <div class="task-text done-text">Push KB v2 code to GitHub</div>
-          <span class="task-tag tag-systems">Systems</span>
+        <div class="task">
+          <div class="task-check done"><i class="icon-check"></i></div>
+          <div class="task-body"><div class="task-title struck">Push KB v2 code to GitHub</div><span class="task-cat tc-systems">Systems</span></div>
+          <div class="task-arrow"><i class="icon-chevron-right"></i></div>
         </div>
       </div>
     </div>
 
-    <!-- Velocity -->
-    <div class="section anim d5">
-      <div class="section-title">Performance</div>
-      <div class="velocity-row">
-        <div class="vel-card">
-          <div class="vel-ring">
-            <svg viewBox="0 0 72 72"><circle class="track" cx="36" cy="36" r="30"/><circle class="fill-g" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="52.8"/></svg>
-            <div class="vel-pct" style="color:var(--green)">72%</div>
+    <!-- Performance -->
+    <div class="section anim d4">
+      <div class="section-head"><div class="section-title">Performance</div></div>
+      <div class="perf-row">
+        <div class="perf-card">
+          <div class="ring-wrap">
+            <svg viewBox="0 0 80 80"><circle class="ring-track" cx="40" cy="40" r="34"/><circle class="ring-fill-g" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="59.8"/></svg>
+            <div class="ring-pct" style="color:var(--green)">72%</div>
           </div>
-          <div class="vel-label">Weekly</div>
-          <div class="vel-desc">8 of 11 tasks</div>
+          <div class="perf-label">Weekly</div>
+          <div class="perf-desc">8 of 11 tasks</div>
         </div>
-        <div class="vel-card">
-          <div class="vel-ring">
-            <svg viewBox="0 0 72 72"><circle class="track" cx="36" cy="36" r="30"/><circle class="fill-b" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="28.3"/></svg>
-            <div class="vel-pct" style="color:var(--blue)">85%</div>
+        <div class="perf-card">
+          <div class="ring-wrap">
+            <svg viewBox="0 0 80 80"><circle class="ring-track" cx="40" cy="40" r="34"/><circle class="ring-fill-b" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="32"/></svg>
+            <div class="ring-pct" style="color:var(--accent)">85%</div>
           </div>
-          <div class="vel-label">Projects</div>
-          <div class="vel-desc">6 of 7 on track</div>
+          <div class="perf-label">Projects</div>
+          <div class="perf-desc">6 of 7 on track</div>
         </div>
-        <div class="vel-card">
-          <div class="vel-ring">
-            <svg viewBox="0 0 72 72"><circle class="track" cx="36" cy="36" r="30"/><circle class="fill-a" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="79.2"/></svg>
-            <div class="vel-pct" style="color:var(--amber)">58%</div>
+        <div class="perf-card">
+          <div class="ring-wrap">
+            <svg viewBox="0 0 80 80"><circle class="ring-track" cx="40" cy="40" r="34"/><circle class="ring-fill-a" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="89.7"/></svg>
+            <div class="ring-pct" style="color:var(--amber)">58%</div>
           </div>
-          <div class="vel-label">Coverage</div>
-          <div class="vel-desc">7 of 12 areas</div>
+          <div class="perf-label">Coverage</div>
+          <div class="perf-desc">7 of 12 areas</div>
         </div>
       </div>
     </div>
+
   </div>
 </div>
 </div>
 
 <!-- Bottom Nav -->
 <div class="bnav">
-  <a class="bnav-item active"><span class="bnav-icon">🏠</span>Home</a>
-  <a class="bnav-item"><span class="bnav-icon">✅</span>Tasks</a>
-  <a class="bnav-item"><span class="bnav-icon">🧠</span>Brain</a>
-  <a class="bnav-item"><span class="bnav-icon">🏆</span>Team</a>
-  <a class="bnav-item" onclick="openDrawer()"><span class="bnav-icon">☰</span>More</a>
+  <a class="bnav-item active"><i class="icon-layout-dashboard"></i>Home</a>
+  <a class="bnav-item"><i class="icon-check-square"></i>Tasks</a>
+  <a class="bnav-item"><i class="icon-brain"></i>Brain</a>
+  <a class="bnav-item"><i class="icon-trophy"></i>Team</a>
+  <a class="bnav-item" onclick="openDrawer()"><i class="icon-menu"></i>More</a>
 </div>
 
-<div class="mockup-tag">MOCKUP v3</div>
+<div class="mockup-tag">v4 · LIGHT</div>
 
 <script>
 function openDrawer(){document.getElementById('drawer').classList.add('open');document.body.style.overflow='hidden'}
 function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.body.style.overflow=''}
-
-// Task check toggle
 document.querySelectorAll('.task-check').forEach(c=>{
   c.addEventListener('click',()=>{
     c.classList.toggle('done');
-    const text=c.nextElementSibling;
-    if(text)text.classList.toggle('done-text');
+    const t=c.closest('.task').querySelector('.task-title');
+    if(t)t.classList.toggle('struck');
   });
 });
-
-// Card tap feedback
 document.querySelectorAll('.area-card').forEach(c=>{
-  c.addEventListener('click',()=>{
-    c.style.borderColor='rgba(99,107,255,0.3)';
-    c.style.background='var(--card-hover)';
-    setTimeout(()=>{c.style.borderColor='';c.style.background=''},300);
-  });
+  c.addEventListener('click',()=>{c.style.transform='scale(.96)';setTimeout(()=>c.style.transform='',200)});
 });
 </script>
 </body>
